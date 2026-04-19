@@ -1,0 +1,12 @@
+# Truy xuất, quản lý dữ liệu
+pandas
+
+# Cài đặt môi trường ảo cho notebooks
+jupyter
+ipykernel
+
+# Vẽ biểu đồ
+matplotlib
+
+# Download dữ liệu từ Kaggle
+requests
