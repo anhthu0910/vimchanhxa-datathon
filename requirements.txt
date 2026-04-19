@@ -1,5 +1,6 @@
 # Truy xuất, quản lý dữ liệu
 pandas
+duckdb
 
 # Cài đặt môi trường ảo cho notebooks
 jupyter

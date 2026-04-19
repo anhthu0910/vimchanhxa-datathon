@@ -1,24 +1,20 @@
+-- database/seed.sql
 -- =========================================================================
--- BƯỚC 1: IMPORT BẢNG MASTER (BẮT BUỘC CHẠY TRƯỚC)
+-- IMPORT DỮ LIỆU TỪ THƯ MỤC data/raw
 -- =========================================================================
-COPY geography FROM 'C:\datathon-2026\geography.csv' DELIMITER ',' CSV HEADER;
-COPY products FROM 'C:\datathon-2026\products.csv' DELIMITER ',' CSV HEADER;
-COPY customers FROM 'C:\datathon-2026\customers.csv' DELIMITER ',' CSV HEADER;
-COPY promotions FROM 'C:\datathon-2026\promotions.csv' DELIMITER ',' CSV HEADER;
 
--- =========================================================================
--- BƯỚC 2: IMPORT BẢNG TRANSACTION
--- =========================================================================
-COPY orders FROM 'C:\datathon-2026\orders.csv' DELIMITER ',' CSV HEADER;
-COPY order_items FROM 'C:\datathon-2026\order_items.csv' DELIMITER ',' CSV HEADER;
-COPY payments FROM 'C:\datathon-2026\payments.csv' DELIMITER ',' CSV HEADER;
-COPY shipments FROM 'C:\datathon-2026\shipments.csv' DELIMITER ',' CSV HEADER;
-COPY returns FROM 'C:\datathon-2026\returns.csv' DELIMITER ',' CSV HEADER;
-COPY reviews FROM 'C:\datathon-2026\reviews.csv' DELIMITER ',' CSV HEADER;
+COPY geography FROM 'data/raw/geography.csv' (HEADER, DELIMITER ',');
+COPY products FROM 'data/raw/products.csv' (HEADER, DELIMITER ',');
+COPY customers FROM 'data/raw/customers.csv' (HEADER, DELIMITER ',');
+COPY promotions FROM 'data/raw/promotions.csv' (HEADER, DELIMITER ',');
 
--- =========================================================================
--- BƯỚC 3: IMPORT BẢNG OPERATIONAL & ANALYTICAL
--- =========================================================================
-COPY inventory FROM 'C:\datathon-2026\inventory.csv' DELIMITER ',' CSV HEADER;
-COPY sales FROM 'C:\datathon-2026\sales.csv' DELIMITER ',' CSV HEADER;
-COPY web_traffic FROM 'C:\datathon-2026\web_traffic.csv' DELIMITER ',' CSV HEADER;
+COPY orders FROM 'data/raw/orders.csv' (HEADER, DELIMITER ',');
+COPY order_items FROM 'data/raw/order_items.csv' (HEADER, DELIMITER ',');
+COPY payments FROM 'data/raw/payments.csv' (HEADER, DELIMITER ',');
+COPY shipments FROM 'data/raw/shipments.csv' (HEADER, DELIMITER ',');
+COPY returns FROM 'data/raw/returns.csv' (HEADER, DELIMITER ',');
+COPY reviews FROM 'data/raw/reviews.csv' (HEADER, DELIMITER ',');
+
+COPY inventory FROM 'data/raw/inventory.csv' (HEADER, DELIMITER ',');
+COPY sales FROM 'data/raw/sales.csv' (HEADER, DELIMITER ',');
+COPY web_traffic FROM 'data/raw/web_traffic.csv' (HEADER, DELIMITER ',');
