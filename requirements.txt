@@ -1,13 +1,13 @@
-# Truy xuất, quản lý dữ liệu
+# Data access and management
 pandas
 duckdb
 
-# Cài đặt môi trường ảo cho notebooks
+# Virtual environment for notebooks
 jupyter
 ipykernel
 
-# Vẽ biểu đồ
+# Plotting
 matplotlib
 
-# Download dữ liệu từ Kaggle
+# Download data from Kaggle
 requests
