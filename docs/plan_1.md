@@ -7,3 +7,5 @@
 **6. Deep Learning**  
 **7. Kết luận**
 
+2 hướng: 
+- dự đoán reveneu trong sales.csv
