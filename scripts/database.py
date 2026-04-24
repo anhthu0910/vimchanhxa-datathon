@@ -14,6 +14,11 @@ def setup_database():
     db_dir.mkdir(parents=True, exist_ok=True)
     db_path = db_dir / "datathon.duckdb"
 
+    # Remove old database file if it exists
+    if db_path.exists():
+        db_path.unlink()
+        print(f"Đã xóa file database cũ: {db_path}")
+
     # 2. Connect and execute
     print(f"--- Initializing database at: {db_path} ---")
     con = duckdb.connect(str(db_path))
