@@ -17,4 +17,5 @@ COPY reviews FROM 'data/raw/reviews.csv' (HEADER, DELIMITER ',');
 
 COPY inventory FROM 'data/raw/inventory.csv' (HEADER, DELIMITER ',');
 COPY sales FROM 'data/raw/sales.csv' (HEADER, DELIMITER ',');
+COPY sales_test FROM 'data/raw/sample_submission.csv' (HEADER, DELIMITER ',');
 COPY web_traffic FROM 'data/raw/web_traffic.csv' (HEADER, DELIMITER ',');

@@ -173,7 +173,15 @@ CREATE TABLE IF NOT EXISTS sales (
     cogs NUMERIC
 );
 
--- 13. Bảng Lưu lượng truy cập (web_traffic)
+-- 13. Bảng dữ liệu tập test doanh thu (sales_test)
+DROP TABLE IF EXISTS sales_test CASCADE;
+CREATE TABLE IF NOT EXISTS sales_test (
+    date DATE,
+    revenue NUMERIC,
+    cogs NUMERIC
+);
+
+-- 14. Bảng Lưu lượng truy cập (web_traffic)
 DROP TABLE IF EXISTS web_traffic CASCADE;
 CREATE TABLE IF NOT EXISTS web_traffic (
     date DATE,
