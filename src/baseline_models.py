@@ -23,44 +23,32 @@ def evaluate_seasonal_naive_model(df, seasonal_length):
 
     return val_clean, {'MAE': mae, 'RMSE': rmse, 'MAPE': mape, 'R-squared': r2}
 
-def evaluate_vanilla_lightgbm(df):
+def evaluate_vanilla_lightgbm(df, features_col, target_col='revenue', 
+                              train_end='2021-12-31', 
+                              val_start='2022-01-01', 
+                              val_end='2022-12-31'):
     """
     Hàm đánh giá mô hình Vanilla LightGBM làm Baseline.
-    Sử dụng các đặc trưng thời gian và lag cơ bản.
+    df: DataFrame chứa các đặc trưng đã được xử lý.
     """
     # Tránh cảnh báo SettingWithCopyWarning bằng cách copy df gốc
     df = df.copy()
     df['date'] = pd.to_datetime(df['date'])
     df = df.sort_values('date').reset_index(drop=True)
 
-    # Đặc trưng thời gian tĩnh
-    df['day_of_week'] = df['date'].dt.dayofweek
-    df['month'] = df['date'].dt.month
-
-    # Đặc trưng chu kỳ (Lags) - Kết hợp cả chu kỳ Tuần và chu kỳ Năm
-    df['lag_7'] = df['revenue'].shift(7)
-    df['lag_30'] = df['revenue'].shift(30)
-    df['lag_120'] = df['revenue'].shift(120)
-    df['lag_364'] = df['revenue'].shift(364)
-
-    # Loại bỏ các dòng bị NaN do hàm shift tạo ra (sẽ mất 364 ngày đầu tiên của tập Train)
+    # Bỏ dòng NaN trước khi chia split (do lag có thể sinh ra NaN)
     df = df.dropna().reset_index(drop=True)
 
-    train = df[df['date'] <= '2021-12-31'].copy()
-    val = df[(df['date'] >= '2022-01-01') & (df['date'] <= '2022-12-31')].copy()
+    train = df[df['date'] <= train_end].copy()
+    val = df[(df['date'] >= val_start) & (df['date'] <= val_end)].copy()
 
-    # Định nghĩa biến đầu vào (X) và biến mục tiêu (y)
-    features = ['day_of_week', 'month', 'lag_7', 'lag_30', 'lag_120', 'lag_364']
-    target = 'revenue'
-
-    X_train = train[features]
-    y_train = train[target]
+    X_train = train[features_col]
+    y_train = train[target_col]
     
-    X_val = val[features]
-    y_val = val[target]
+    X_val = val[features_col]
+    y_val = val[target_col]
 
     # Huấn luyện mô hình LightGBM với các tham số mặc định (Vanilla)
-    # Thiết lập random_state=42 để đảm bảo tính "Tái lập" (Reproducibility) theo yêu cầu đề thi
     model = lgb.LGBMRegressor(random_state=42)
     model.fit(X_train, y_train)
 
@@ -69,9 +57,9 @@ def evaluate_vanilla_lightgbm(df):
     val_clean['lgbm_revenue'] = model.predict(X_val)
 
     # Tính toán 4 chỉ số
-    mae = mean_absolute_error(val_clean['revenue'], val_clean['lgbm_revenue'])
-    rmse = np.sqrt(mean_squared_error(val_clean['revenue'], val_clean['lgbm_revenue']))
-    mape = mean_absolute_percentage_error(val_clean['revenue'], val_clean['lgbm_revenue']) * 100
-    r2 = r2_score(val_clean['revenue'], val_clean['lgbm_revenue'])
+    mae = mean_absolute_error(val_clean[target_col], val_clean['lgbm_revenue'])
+    rmse = np.sqrt(mean_squared_error(val_clean[target_col], val_clean['lgbm_revenue']))
+    mape = mean_absolute_percentage_error(val_clean[target_col], val_clean['lgbm_revenue']) * 100
+    r2 = r2_score(val_clean[target_col], val_clean['lgbm_revenue'])
 
     return val_clean, {'MAE': mae, 'RMSE': rmse, 'MAPE': mape, 'R-squared': r2}
