@@ -9,6 +9,10 @@ ipykernel
 # Plotting
 matplotlib
 
+# Machine learning
+scikit-learn
+lightgbm
+
 # Download data from Kaggle
 requests
 
