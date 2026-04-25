@@ -11,3 +11,6 @@ matplotlib
 
 # Download data from Kaggle
 requests
+
+
+statsmodels

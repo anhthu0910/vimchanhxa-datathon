@@ -1,0 +1,6 @@
+# Phân rã chuỗi thời gian
+result = seasonal_decompose(df_sales['Revenue'], model='additive')  
+# hoặc model='multiplicative' nếu biên độ mùa vụ thay đổi theo mức
+
+result.plot()
+plt.show()
