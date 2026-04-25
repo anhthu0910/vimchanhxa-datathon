@@ -8,6 +8,7 @@ ipykernel
 
 # Plotting
 matplotlib
+seaborn
 
 # Machine learning
 scikit-learn
