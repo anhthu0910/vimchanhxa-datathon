@@ -18,4 +18,5 @@ def get_connection(read_only=True):
             "Vui lòng chạy 'python scripts/database.py' trước!"
         )
 
+    print(f"[OKE] Kết nối thành công tới database tại {db_path}")
     return duckdb.connect(str(db_path), read_only=read_only)
