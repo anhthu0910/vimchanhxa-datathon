@@ -8,6 +8,7 @@ ipykernel
 
 # Plotting
 matplotlib
+seaborn
 
 # Machine learning
 scikit-learn
@@ -16,5 +17,5 @@ lightgbm
 # Download data from Kaggle
 requests
 
-
+# Time series analysis
 statsmodels
