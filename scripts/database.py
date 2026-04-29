@@ -3,6 +3,13 @@ import duckdb
 import os
 from pathlib import Path
 
+def get_connection():
+    """Get a connection to the DuckDB database."""
+    script_dir = Path(__file__).resolve().parent
+    repo_root = script_dir.parent
+    db_path = repo_root / "data" / "database" / "datathon.duckdb"
+    return duckdb.connect(str(db_path))
+
 def setup_database():
     # 1. Determine the path to the database files
     script_dir = Path(__file__).resolve().parent
