@@ -376,7 +376,7 @@ MODEL_ZOO = {
 def run_all_models(
     df,
     features,
-    target_col="revenue",
+    target="revenue",
     sort_by="RMSE"
 ):
     """
@@ -390,7 +390,7 @@ def run_all_models(
             _, _, metric = model_func(
                 df=df,
                 feature_cols=features,
-                target_col=target_col
+                target_col=target
             )
 
             row = {
@@ -431,7 +431,7 @@ def run_single_model(
     model_name,
     df,
     features,
-    target_col="revenue",
+    target="revenue",
     params=None
 ):
     """
@@ -450,6 +450,6 @@ def run_single_model(
     return MODEL_ZOO[model_name](
         df=df,
         feature_cols=features,
-        target_col=target_col,
+        target_col=target,
         params=params
     )
