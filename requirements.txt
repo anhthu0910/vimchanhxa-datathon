@@ -1,4 +1,5 @@
 # Data access and management
+numpy
 pandas
 duckdb
 
@@ -9,10 +10,19 @@ ipykernel
 # Plotting
 matplotlib
 seaborn
+shap
 
 # Machine learning
 scikit-learn
 lightgbm
+catboost
+xgboost
+
+# Support for training
+u8darts[all]
+
+# Hyperparameter tuning
+optuna
 
 # Download data from Kaggle
 requests
