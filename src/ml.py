@@ -329,7 +329,8 @@ def catboost_model(df, feature_cols, target_col="revenue", params=None):
         "iterations": 500,
         "learning_rate": 0.05,
         "random_seed": RANDOM_STATE,
-        "verbose": 0
+        "verbose": 0,
+        "allow_writing_files": False
     }
     if params:
         basic.update(params)
@@ -374,7 +375,7 @@ MODEL_ZOO = {
 
 def run_all_models(
     df,
-    feature_cols,
+    features,
     target_col="revenue",
     sort_by="RMSE"
 ):
@@ -388,7 +389,7 @@ def run_all_models(
         try:
             _, _, metric = model_func(
                 df=df,
-                feature_cols=feature_cols,
+                feature_cols=features,
                 target_col=target_col
             )
 
@@ -429,7 +430,7 @@ def run_all_models(
 def run_single_model(
     model_name,
     df,
-    feature_cols,
+    features,
     target_col="revenue",
     params=None
 ):
@@ -438,7 +439,7 @@ def run_single_model(
     run_single_model(
         "LightGBM",
         df,
-        feature_cols,
+        features,
         params={"num_leaves":31}
     )
     """
@@ -448,7 +449,7 @@ def run_single_model(
 
     return MODEL_ZOO[model_name](
         df=df,
-        feature_cols=feature_cols,
+        feature_cols=features,
         target_col=target_col,
         params=params
     )
