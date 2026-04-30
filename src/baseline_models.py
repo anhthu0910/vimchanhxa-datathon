@@ -86,7 +86,7 @@ def linear_regression_model(df, feature_cols, target_col='revenue'):
     y_val = val[target_col]
 
     # Baseline Linear Regression basic params
-    model = LinearRegression(random_state=42, fit_intercept=True, n_jobs=None)
+    model = LinearRegression(fit_intercept=True, n_jobs=None)
 
     # Train
     model.fit(X_train, y_train)
