@@ -75,14 +75,7 @@ from sklearn.metrics import (
     r2_score
 )
 
-from sklearn.linear_model import (
-    LinearRegression,
-    Ridge,
-    Lasso,
-    ElasticNet,
-    BayesianRidge,
-    HuberRegressor
-)
+from sklearn.linear_model import LinearRegression
 
 from sklearn.tree import DecisionTreeRegressor
 
@@ -144,43 +137,6 @@ def get_model(model_name, params=None):
         basic.update(params)
         return LinearRegression(**basic)
 
-    elif model_name == "Ridge":
-        basic = {"alpha": 1.0}
-        basic.update(params)
-        return Ridge(**basic)
-
-    elif model_name == "Lasso":
-        basic = {
-            "alpha": 1.0,
-            "max_iter": 5000,
-            "random_state": SEED
-        }
-        basic.update(params)
-        return Lasso(**basic)
-
-    elif model_name == "ElasticNet":
-        basic = {
-            "alpha": 1.0,
-            "l1_ratio": 0.5,
-            "max_iter": 5000,
-            "random_state": SEED
-        }
-        basic.update(params)
-        return ElasticNet(**basic)
-
-    elif model_name == "BayesianRidge":
-        basic = {}
-        basic.update(params)
-        return BayesianRidge(**basic)
-
-    elif model_name == "HuberRegressor":
-        basic = {
-            "epsilon": 1.35,
-            "max_iter": 500
-        }
-        basic.update(params)
-        return HuberRegressor(**basic)
-
     # TREE
     elif model_name == "DecisionTree":
         basic = {"random_state": SEED}
@@ -225,18 +181,6 @@ def get_model(model_name, params=None):
     # LIGHTGBM
     elif model_name == "LightGBM":
         basic = {
-            "n_estimators": 500,
-            "learning_rate": 0.05,
-            "random_state": SEED,
-            "n_jobs": -1,
-            "verbose": -1
-        }
-        basic.update(params)
-        return LGBMRegressor(**basic)
-
-    elif model_name == "LightGBM_DART":
-        basic = {
-            "boosting_type": "dart",
             "n_estimators": 500,
             "learning_rate": 0.05,
             "random_state": SEED,
@@ -427,7 +371,8 @@ def run_rolling_forecast(
         nan_mask = month_mask & work_df[target_col].isna()
         work_df.loc[nan_mask, target_col] = work_df.loc[nan_mask, "prediction"]
 
-    result = work_df[work_df[date_col] >= forecast_start].copy()
+    # Xóa cột "prediction"
+    result = work_df.drop(columns=["prediction"]).copy()
 
     return result, model
 
@@ -444,18 +389,12 @@ def run_all_models(
 
     model_list = [
         "LinearRegression",
-        "Ridge",
-        "Lasso",
-        "ElasticNet",
-        "BayesianRidge",
-        "HuberRegressor",
         "DecisionTree",
         "RandomForest",
         "ExtraTrees",
         "HistGradientBoosting",
         "AdaBoost",
         "LightGBM",
-        "LightGBM_DART",
         "XGBoost",
         "CatBoost"
     ]
