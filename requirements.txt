@@ -9,6 +9,7 @@ ipykernel
 
 # Plotting
 matplotlib
+plotty
 seaborn
 shap
 
@@ -17,6 +18,7 @@ scikit-learn
 lightgbm
 catboost
 xgboost
+prophet
 
 # Support for training
 u8darts[all]
